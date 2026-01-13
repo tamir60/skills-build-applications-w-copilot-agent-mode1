@@ -2,8 +2,9 @@ import axios from 'axios';
 
 // Determine API base URL
 const getApiBaseUrl = () => {
-  const codespaceName = process.env.REACT_APP_CODESPACES_NAME;
-  if (codespaceName) {
+  // Check if running in codespace by looking for codespace in URL
+  if (window.location.hostname.includes('app.github.dev')) {
+    const codespaceName = window.location.hostname.split('-3000')[0];
     return `https://${codespaceName}-8000.app.github.dev`;
   }
   return 'http://localhost:8000';
@@ -11,6 +12,7 @@ const getApiBaseUrl = () => {
 
 const api = axios.create({
   baseURL: getApiBaseUrl(),
+  withCredentials: true,
 });
 
 // Add token to requests if available

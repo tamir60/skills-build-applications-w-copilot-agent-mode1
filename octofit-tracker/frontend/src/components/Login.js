@@ -10,11 +10,14 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log('Attempting login with:', { username, password });
       const response = await api.post('/api/auth/login/', { username, password });
+      console.log('Login response:', response);
       localStorage.setItem('token', response.data.key);
       onLogin();
     } catch (err) {
-      setError('Invalid credentials');
+      console.error('Login error:', err);
+      setError('Invalid credentials or network error');
     }
   };
 

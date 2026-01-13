@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from fitness import views
+from django.views.generic import RedirectView
 
 router = routers.DefaultRouter()
 router.register(r'api/profiles', views.UserProfileViewSet)
@@ -28,6 +29,7 @@ def api_root(request):
     return routers.APIRootView.as_view(api_root_dict=router.get_api_root_dict())(request)
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='/api/', permanent=False)),
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api-root'),
     path('api/', include(router.urls)),

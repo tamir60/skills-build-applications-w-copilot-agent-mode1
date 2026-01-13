@@ -12,7 +12,7 @@ const getApiBaseUrl = () => {
 
 const api = axios.create({
   baseURL: getApiBaseUrl(),
-  withCredentials: true,
+  // withCredentials: true,  // Removed for token-only authentication
 });
 
 // Add token to requests if available

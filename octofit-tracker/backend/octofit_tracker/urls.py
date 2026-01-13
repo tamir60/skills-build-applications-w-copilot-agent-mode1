@@ -20,18 +20,14 @@ from fitness import views
 from django.views.generic import RedirectView
 
 router = routers.DefaultRouter()
-router.register(r'api/profiles', views.UserProfileViewSet)
-router.register(r'api/activities', views.ActivityViewSet)
-router.register(r'api/teams', views.TeamViewSet)
-router.register(r'api/suggestions', views.WorkoutSuggestionViewSet)
-
-def api_root(request):
-    return routers.APIRootView.as_view(api_root_dict=router.get_api_root_dict())(request)
+router.register(r'profiles', views.UserProfileViewSet)
+router.register(r'activities', views.ActivityViewSet)
+router.register(r'teams', views.TeamViewSet)
+router.register(r'suggestions', views.WorkoutSuggestionViewSet)
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/api/', permanent=False)),
     path('admin/', admin.site.urls),
-    path('api/', api_root, name='api-root'),
     path('api/', include(router.urls)),
     path('api/auth/', include('dj_rest_auth.urls')),
     path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
